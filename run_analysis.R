@@ -1,3 +1,4 @@
+library(dplyr)
 
 ##### Merges the training and test sets into a single data set
 # Load data
@@ -32,3 +33,6 @@ all_data_m_sd <- select(all_data, contains("mean") | contains("std") | contains(
 #####     average of each variable for each activity and each subject.
 
 all_data_aggregate <- aggregate(all_data, by=list(all_data$activity, all_data$subject), FUN=mean)
+names(all_data_aggregate)[1:2] <- list("activity", "subject")
+
+write.table(all_data_aggregate, file = "analysis_output.csv",row.name = FALSE)
