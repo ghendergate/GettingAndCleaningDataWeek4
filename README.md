@@ -33,7 +33,7 @@ Add activity and subject columns to x_test, and translate the activity IDs to th
 merged_test <- mutate(x_test, activity=activity_labels[y_test$index,2], subject=subject_test$index)
 ```
 
-Combine training and test data
+Combine training and test data, by appending the rows from merged_test to merged_train.
 ```
 all_data <- rbind(merged_train, merged_test)
 ```
