@@ -32,5 +32,3 @@ all_data_m_sd <- select(all_data, contains("mean") | contains("std") | contains(
 #####     average of each variable for each activity and each subject.
 
 all_data_aggregate <- aggregate(all_data, by=list(all_data$activity, all_data$subject), FUN=mean)
-all_data_aggregate_activity <- aggregate(all_data, by=list(all_data$activity), FUN=mean)
-all_data_aggregate_subject <- aggregate(all_data, by=list(all_data$subject), FUN=mean)
