@@ -46,14 +46,48 @@ all_data_m_sd <- select(all_data, contains("mean") | contains("std") | contains(
 
 Calculate averages for each variable, discretising into groups according to the combinations of activity label and subject ID.
 ```
-all_data_aggregate <- aggregate(all_data, by=list(all_data$activity, all_data$subject), FUN=mean)
+all_data_aggregate <- aggregate(all_data_m_sd, by=list(all_data$activity, all_data$subject), FUN=mean)
 ```
-The previous step loses the column names for activity and subject, so this line of code changes the names to be correct.
+The previous step loses the column names for activity and subject, and leaves leftover columns at the end of the table, so this  changes the names to be correct and removes the leftover columns.
 ```
 names(all_data_aggregate)[1:2] <- list("activity", "subject")
+all_data_aggregate <- all_data_aggregate[1:88]
+```
+Construct a list of human-readable terms, each of which has a name that is the regex search term
+```
+nameRegister <- c("Time", 
+                  "Frequency", 
+                  "Accelerometer",
+                  "Gyroscope",
+                  "Magnitude",
+                  "standardDeviation",
+                  "",
+                  "-")
+names(nameRegister) <- c("^t|\\.t", # only match first character element or character preceded by "."
+                         "^f|Freq\\.", # only match first character element or abbreviation followed by "."
+                         "Acc",
+                         "Gyro",
+                         "Mag",
+                         "std",
+                         "\\.{1,}$", # match any number of consecutive trailing ".",
+                         "\\.{1,}(?=[A-Z])" # match any number of consecutive "." followed by capital letter with "-" (i.e. lookahead, requires perl=TRUE)
+                         )
+```
+
+Loop through the regex search terms and match/replace values in each column title. 
+```
+i <- 1
+for (n in names(all_data_aggregate)){
+  tempColumnName <- n # do name operations on a temporary variable
+  for (title in names(nameRegister)){ # replace every matching abbreviation
+    tempColumnName <- gsub(title, tempColumnName, replacement=nameRegister[title], perl=TRUE)
+  }
+  names(all_data_aggregate)[i] <- tempColumnName
+  i <- i + 1
+}
 ```
 
 Write the final data table to disc
 ```
-write.table(all_data_aggregate, file = "analysis_output.csv", row.name = FALSE)
+write.table(all_data_aggregate, file = "analysis_output.txt", row.name = FALSE)
 ```
