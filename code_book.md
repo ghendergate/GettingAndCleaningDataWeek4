@@ -9,27 +9,43 @@ date: "04/03/2020"
 #### Groups
 Subject - indicates the ID of the subject whom was operating the smartphone while measurements were being taken. The values are 1-30.
 Activity - indicates the activity which was being carried out while measurements were taken.
-  Values for Activity: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
+    Values for Activity: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
 
 #### Measurements
 The general form of the measurement variables are:
 
 timeBodyAccelerometer-XYZ
+
 timeGravityAccelerometer-XYZ
+
 timeBodyAccJerk-XYZ
+
 timeBodyGyroscope-XYZ
+
 timeBodyGyroscopeJerk-XYZ
+
 timeBodyAccelerometerMagnitude
+
 timeGravityAccelerometerMagnitude
+
 timeBodyAccelerometerJerkMagnitude
+
 timeBodyGyroscopeMagnitude
+
 timeBodyGyroscopeJerkMagnitude
+
 frequencyBodyAccelerometer-XYZ
+
 frequencyBodyAccelerometerJerk-XYZ
+
 frequencyBodyGyroscope-XYZ
+
 frequencyBodyAccelerometerMagnitude
+
 frequencyBodyAccelerometerJerkMagnitude
+
 frequencyBodyGyroscopeMagnitude
+
 frequencyBodyGyroscopeJerkMagnitude
 
 Each of the above variables is represented in the output table as summary data. 
