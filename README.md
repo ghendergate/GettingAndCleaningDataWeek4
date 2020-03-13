@@ -1,3 +1,26 @@
+## Project Description
+Collect, work with, and clean data relating to tests carried out on the Samsung Galaxy S smartphone, using the data collected from the phone accelerometers. Merge training and test data sets, extract only the mean and standard deviation fields, add appropriate labels, and combine with activity type and subject ID. Then from that data calculate for the mean for each column, grouped by combinations of activity and subject.
+
+### Collection of the raw data
+Data was collected from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+### Notes on the original (raw) data 
+Full description of the data: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+### Guide to create the tidy data file
+Download the contents of the repo.
+Open RStudio, and ensure that the dplyr package is installed.
+Execute the script "run_analysis.R" to create a file named "analysis_output.csv" which contains the processed data, which will be deposited within the same folder as the script.
+
+### Description of the analysis_output.txt file
+The first row of data contains the column names, details of which can be found in features.txt and features_info.txt. 
+The first column (activity) contains strings as defined within activity_labels.txt, and the second column (subject) indicates the subject ID number. The remaining columns contain numeric data.
+The table should have 180 rows of data and 81 variables (columns).
+The data presented is the average value for each variable for each combination of activity and subject. 
+
+
+### Description of run_analysis.R code
+
 Load the required library
 ```
 library(dplyr)
@@ -52,6 +75,12 @@ The previous step loses the column names for activity and subject, and leaves le
 ```
 names(all_data_aggregate)[1:2] <- list("activity", "subject")
 all_data_aggregate <- all_data_aggregate[1:88]
+```
+Removed unwanted columns with "angle" in the name, using grep to build up a logical mask
+```
+nm <- names(all_data_aggregate)
+angleInName <- nm %in% grep("^angle", nm, value=TRUE)
+all_data_aggregate <- all_data_aggregate[!angleInName]
 ```
 Construct a list of human-readable terms, each of which has a name that is the regex search term
 ```
