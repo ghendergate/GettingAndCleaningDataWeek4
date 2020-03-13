@@ -4,22 +4,30 @@ author: "Gabriel"
 date: "04/03/2020"
 ---
 
-## Project Description
-Collect, work with, and clean data relating to tests carried out on the Samsung Galaxy S smartphone, using the data collected from the phone accelerometers. Merge training and test data sets, extract only the mean and standard deviation fields, add appropriate labels, and combine with activity type and subject ID. Then from that data calculate for the mean for each column, grouped by combinations of activity and subject.
+The general form of the variables are:
 
-### Collection of the raw data
-Data was collected from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+timeBodyAccelerometer-XYZ
+timeGravityAccelerometer-XYZ
+timeBodyAccJerk-XYZ
+timeBodyGyroscope-XYZ
+timeBodyGyroscopeJerk-XYZ
+timeBodyAccelerometerMagnitude
+timeGravityAccelerometerMagnitude
+timeBodyAccelerometerJerkMagnitude
+timeBodyGyroscopeMagnitude
+timeBodyGyroscopeJerkMagnitude
+frequencyBodyAccelerometer-XYZ
+frequencyBodyAccelerometerJerk-XYZ
+frequencyBodyGyroscope-XYZ
+frequencyBodyAccelerometerMagnitude
+frequencyBodyAccelerometerJerkMagnitude
+frequencyBodyGyroscopeMagnitude
+frequencyBodyGyroscopeJerkMagnitude
 
-### Notes on the original (raw) data 
-Full description of the data: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
-
-### Guide to create the tidy data file
-Download the contents of the repo.
-Open RStudio, and ensure that the dplyr package is installed.
-Execute the script "run_analysis.R" to create a file named "analysis_output.csv" which contains the processed data, which will be deposited within the same folder as the script.
-
-### Description of the analysis_output.txt file
-The first row of data contains the column names, details of which can be found in features.txt and features_info.txt. 
-The first column (activity) contains strings as defined within activity_labels.txt, and the second column (subject) indicates the subject ID number. The remaining columns contain numeric data.
-The table should have rows of  data and 563 variables (columns).
-The data presented is the average value for each variable for each combination of activity and subject. 
+Each of the above variables is represented in the output table as summary data. 
+For each variable the mean (denoted by suffix ".mean", and standard deviation (denoted by suffex ".standardDeviation) were calculated.
+Where  the above variables have suffix -XYZ, the output data separates these into axial data, with the suffixes "-X", "-Y", or "-Z".
+Acceleration measurements were separated in "Body" and "Gravity" acceleration signals, as denoted by the prefix to "Accelerometer".
+Jerk was derived from the body linear acceleration and angular velocity.
+Magnitudes wwere calculated using the Euclidean norm.
+The first term of each variable denotes if the measurement is in the frequency or time domain.
